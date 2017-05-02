@@ -23,22 +23,22 @@ import util.DatabaseCleaner;
  * @author yanni
  */
 public class OpdrachtEen {
-    
+
     EntityManagerFactory emf;
     EntityManager em;
     DatabaseCleaner clean;
-    
+
     public OpdrachtEen() {
     }
 
     @BeforeClass
     public static void setUpClass() {
-        
+
     }
 
     @AfterClass
     public static void tearDownClass() {
-        
+
     }
 
     @Before
@@ -46,18 +46,15 @@ public class OpdrachtEen {
         emf = Persistence.createEntityManagerFactory("bankPU");
         em = emf.createEntityManager();
         clean = new DatabaseCleaner(em);
-        
+
     }
 
     @After
-    public void tearDown(){
-        
-        try
-        {
+    public void tearDown() {
+
+        try {
             clean.clean();
-        }
-        catch(SQLException ex)
-        {
+        } catch (SQLException ex) {
             System.out.println(ex.toString());
         }
     }
@@ -67,9 +64,6 @@ public class OpdrachtEen {
     //
     // @Test
     // public void hello() {}
-    
-    
-    
     @Test
     public void opdrachtEen() {
         Account account = new Account(111L);
@@ -82,10 +76,15 @@ public class OpdrachtEen {
         //TODO: verklaar en pas eventueel aan (was al goed)
         assertTrue(account.getId() > 0L);
     }
-    
+
     @Test
-    public void opdrachtTwee()
-    {
+    public void opdrachtTwee() {
+        Account account = new Account(111L);
+        em.getTransaction().begin();
+        em.persist(account);
+        assertNull(account.getId());
+        em.getTransaction().rollback();
+        // TODO code om te testen dat table account geen records bevat. Hint: bestudeer/gebruik AccountDAOJPAImpl
         
     }
 }
