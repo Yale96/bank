@@ -69,7 +69,7 @@ public class OpdrachtEen {
     // @Test
     // public void hello() {}
     @Test
-    public void opdrachtEen() {
+    public void vraagEen() {
         Account account = new Account(111L);
         em.getTransaction().begin();
         em.persist(account);
@@ -82,7 +82,7 @@ public class OpdrachtEen {
     }
 
     @Test
-    public void opdrachtTwee() {
+    public void vraagTwee() {
         Account account = new Account(111L);
         em.getTransaction().begin();
         em.persist(account);
@@ -93,5 +93,22 @@ public class OpdrachtEen {
         cq.select(cq.from(Account.class));
         List<Account> emptyList = em.createQuery(cq).getResultList();
         assertEquals(emptyList, DAO.findAll());
+    }
+
+    @Test
+    public void vraagDrie() {
+        Long expected = -100L;
+        Account account = new Account(111L);
+        account.setId(expected);
+        em.getTransaction().begin();
+        em.persist(account);
+        //TODO: verklaar en pas eventueel aan IS ASSERTEQUALS EN GEEN NOTEQUALS
+        assertEquals(expected, account.getId());
+        em.flush();
+        //TODO: verklaar en pas eventueel aan
+        assertEquals(expected, account.getId());
+        em.getTransaction().commit();
+        //TODO: verklaar en pas eventueel aan
+        
     }
 }

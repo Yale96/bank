@@ -14,6 +14,7 @@
       <property name="eclipselink.logging.logger" value="DefaultLogger"/>
       <property name="eclipselink.logging.level" value="FINE"/>
       <class>bank.domain.Account</class>
+      <class>bank.dao.AccountDAOJPAImpl</class>
     </properties>
   </persistence-unit>
 </persistence>
