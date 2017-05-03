@@ -5,11 +5,14 @@
  */
 package opdrachten;
 
+import bank.dao.AccountDAOJPAImpl;
 import bank.domain.Account;
 import java.sql.SQLException;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.criteria.CriteriaQuery;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,6 +30,7 @@ public class OpdrachtEen {
     EntityManagerFactory emf;
     EntityManager em;
     DatabaseCleaner clean;
+    AccountDAOJPAImpl DAO;
 
     public OpdrachtEen() {
     }
@@ -46,7 +50,7 @@ public class OpdrachtEen {
         emf = Persistence.createEntityManagerFactory("bankPU");
         em = emf.createEntityManager();
         clean = new DatabaseCleaner(em);
-
+        DAO = new AccountDAOJPAImpl(em);
     }
 
     @After
@@ -85,6 +89,9 @@ public class OpdrachtEen {
         assertNull(account.getId());
         em.getTransaction().rollback();
         // TODO code om te testen dat table account geen records bevat. Hint: bestudeer/gebruik AccountDAOJPAImpl
-        
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Account.class));
+        List<Account> emptyList = em.createQuery(cq).getResultList();
+        assertEquals(emptyList, DAO.findAll());
     }
 }
