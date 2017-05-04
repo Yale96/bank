@@ -109,6 +109,31 @@ public class OpdrachtEen {
         assertEquals(expected, account.getId());
         em.getTransaction().commit();
         //TODO: verklaar en pas eventueel aan
+
+    }
+
+    @Test
+    public void vraagVier() {
+        Long expectedBalance = 400L;
+        Account account = new Account(114L);
+        em.getTransaction().begin();
+        em.persist(account);
+        account.setBalance(expectedBalance);
+        em.getTransaction().commit();
+        assertEquals(expectedBalance, account.getBalance());
+        //TODO: verklaar de waarde van account.getBalance
+        Long cid = account.getId();
+        account = null;
+        EntityManager em2 = emf.createEntityManager();
+        em2.getTransaction().begin();
+        Account found = em2.find(Account.class, cid);
+        //TODO: verklaar de waarde van found.getBalance
+        assertEquals(expectedBalance, found.getBalance());
+
+    }
+
+    @Test
+    public void vraagVijf() {
         
     }
 }
