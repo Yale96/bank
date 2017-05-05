@@ -132,7 +132,6 @@ public class OpdrachtEen {
 //        assertEquals(expectedBalance, found.getBalance());
 //        System.out.println("Found.getBalance: " + found.getBalance());
 //    }
-
     @Test
     public void vraagVijf() {
 
@@ -143,26 +142,46 @@ public class OpdrachtEen {
 
     }
 
-    public void vraagZeven() {
-        Account acc1 = new Account(77L);
+//    @Test
+//    public void vraagZeven() {
+//        Account acc1 = new Account(77L);
+//        em.getTransaction().begin();
+//        em.persist(acc1);
+//        em.getTransaction().commit();
+//        //Database bevat nu een account.
+//
+//        // scenario 1        
+//        Account accF1;
+//        Account accF2;
+//        accF1 = em.find(Account.class, acc1.getId());
+//        accF2 = em.find(Account.class, acc1.getId());
+//        assertSame(accF1, accF2);
+//        System.out.println("First assert: " + accF1 + ", " + accF2);
+//
+//        // scenario 2        
+//        accF1 = em.find(Account.class, acc1.getId());
+//        em.clear();
+//        accF2 = em.find(Account.class, acc1.getId());
+//        //assertSame(accF1, accF2);
+//        assertNotEquals(accF1, accF2);
+//        //TODO verklaar verschil tussen beide scenario’s account wordt verwijderd, dus kan niet het zelfde zijn.
+//        System.out.println("Second assert: " + accF1 + ", " + accF2);
+//    }
+
+    @Test
+    public void vraagAcht() {
+        Account acc1 = new Account(88L);
         em.getTransaction().begin();
         em.persist(acc1);
         em.getTransaction().commit();
+        Long id = acc1.getId();
         //Database bevat nu een account.
+        
 
-        // scenario 1        
-        Account accF1;
-        Account accF2;
-        accF1 = em.find(Account.class, acc1.getId());
-        accF2 = em.find(Account.class, acc1.getId());
-        assertSame(accF1, accF2);
-
-        // scenario 2        
-        accF1 = em.find(Account.class, acc1.getId());
-        em.clear();
-        accF2 = em.find(Account.class, acc1.getId());
-        assertSame(accF1, accF2);
-        //TODO verklaar verschil tussen beide scenario’s
-
+        em.remove(acc1);
+        assertEquals(id, acc1.getId());
+        Account accFound = em.find(Account.class, id);
+        assertNull(accFound);
+        //TODO: verklaar bovenstaande asserts
     }
 }
