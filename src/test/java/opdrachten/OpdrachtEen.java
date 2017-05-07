@@ -97,19 +97,21 @@ public class OpdrachtEen {
 //    }
 //    @Test
 //    public void vraagDrie() {
-//        Long expected = 8L;
+//        Long expected = -100L;
 //        Account account = new Account(111L);
 //        account.setId(expected);
 //        em.getTransaction().begin();
 //        em.persist(account);
 //        //TODO: verklaar en pas eventueel aan IS ASSERTEQUALS EN GEEN NOTEQUALS
 //        assertEquals(expected, account.getId());
+//        System.out.println("First assert: " + account.getId());
 //        em.flush();
-//        //TODO: verklaar en pas eventueel aan
-//        assertEquals(expected, account.getId());
+//        //TODO: verklaar en pas eventueel aan vanaf flush wordt er een account naar de database gesynchronizeerd
+//        Long secondExpect = 4L;
+//        assertEquals(secondExpect, account.getId());
+//        System.out.println("Second assert: " + account.getId());
 //        em.getTransaction().commit();
 //        //TODO: verklaar en pas eventueel aan
-//
 //    }
 //
 //    @Test
@@ -132,15 +134,36 @@ public class OpdrachtEen {
 //        assertEquals(expectedBalance, found.getBalance());
 //        System.out.println("Found.getBalance: " + found.getBalance());
 //    }
-    @Test
-    public void vraagVijf() {
-
-    }
-
-    @Test
-    public void vraagZes() {
-
-    }
+//    @Test
+//    public void vraagVijf() {
+//        Long expectedBalance = 400L;
+//        Account account = new Account(114L);
+//        em.getTransaction().begin();
+//        em.persist(account);
+//        account.setBalance(expectedBalance);
+//        em.getTransaction().commit();
+//        assertEquals(expectedBalance, account.getBalance());
+//        //TODO: verklaar de waarde van account.getBalance
+//        Long cid = account.getId();
+//        account = null;
+//        EntityManager em2 = emf.createEntityManager();
+//        em2.getTransaction().begin();
+//        Account found = em2.find(Account.class, cid);
+//        
+//        System.out.print("Balance of found: " + found.getBalance());
+//        
+//        em.getTransaction().begin();
+//        Long changedBalance = 500L;
+//        found.setBalance(changedBalance);
+//        em.getTransaction().commit();
+//        System.out.print("Changed balance of found: " + found.getBalance());
+//        assertEquals(changedBalance, found.getBalance());
+//    }
+//
+//    @Test
+//    public void vraagZes() {
+//        
+//    }
 
 //    @Test
 //    public void vraagZeven() {
@@ -164,10 +187,10 @@ public class OpdrachtEen {
 //        accF2 = em.find(Account.class, acc1.getId());
 //        //assertSame(accF1, accF2);
 //        assertNotEquals(accF1, accF2);
-//        //TODO verklaar verschil tussen beide scenario’s account wordt verwijderd, dus kan niet het zelfde zijn.
+//        //TODO verklaar verschil tussen beide scenario’s account wordt verwijderd, dus kan niet hetzelfde zijn.
 //        System.out.println("Second assert: " + accF1 + ", " + accF2);
 //    }
-
+    
     @Test
     public void vraagAcht() {
         Account acc1 = new Account(88L);
