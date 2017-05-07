@@ -107,8 +107,7 @@ public class OpdrachtEen {
 //        System.out.println("First assert: " + account.getId());
 //        em.flush();
 //        //TODO: verklaar en pas eventueel aan vanaf flush wordt er een account naar de database gesynchronizeerd
-//        Long secondExpect = 4L;
-//        assertEquals(secondExpect, account.getId());
+//        assertNotEquals(expected, account.getId());
 //        System.out.println("Second assert: " + account.getId());
 //        em.getTransaction().commit();
 //        //TODO: verklaar en pas eventueel aan
@@ -162,7 +161,67 @@ public class OpdrachtEen {
 //
 //    @Test
 //    public void vraagZes() {
-//        
+//        Account acc = new Account(1L);
+//        Account acc2 = new Account(2L);
+//        Account acc9 = new Account(9L);
+//
+//        // scenario 1
+//        Long balance1 = 100L;
+//        em.getTransaction().begin();
+//        em.persist(acc);
+//        acc.setBalance(balance1);
+//        em.getTransaction().commit();
+//        assertEquals(balance1, acc.getBalance());
+//        //TODO: voeg asserties toe om je verwachte waarde van de attributen te verifieren.
+//        //TODO: doe dit zowel voor de bovenstaande java objecten als voor opnieuw bij de entitymanager opgevraagde objecten met overeenkomstig Id.
+//
+//        Long balance2a = 211L;
+//        Long balance2b = 222L;
+//        em.getTransaction().begin();
+//        acc2 = em.merge(acc);
+//        acc.setBalance(balance2a);
+//        acc2.setBalance(balance2b);
+//        em.getTransaction().commit();
+//        assertEquals(balance2b, acc.getBalance());
+//        assertEquals(balance2b, acc2.getBalance());
+//
+//        // scenario 3
+//        Long balance3c = 333L;
+//        Long balance3d = 344L;
+//        em.getTransaction().begin();
+//        acc2 = em.merge(acc);
+//        assertTrue(em.contains(acc));
+//        assertTrue(em.contains(acc2));
+//        assertEquals(acc, acc2);
+//        acc2.setBalance(balance3c);
+//        acc.setBalance(balance3d);
+//        em.getTransaction().commit();
+//        assertEquals(balance3d, acc.getBalance());
+//        assertEquals(balance3d, acc2.getBalance());
+//
+//        // scenario 4
+//        Account account = new Account(114L);
+//        account.setBalance(450L);
+//        EntityManager em = emf.createEntityManager();
+//        em.getTransaction().begin();
+//        em.persist(account);
+//        em.getTransaction().commit();
+//
+//        Account account2 = new Account(114L);
+//        Account tweedeAccountObject = account2;
+//        tweedeAccountObject.setBalance(650l);
+//        assertEquals((Long) 650L, account2.getBalance());  //blijkbaar worden account2 en tweedeAccountObject aan elkaar gelinkt.
+//        account2.setId(account.getId());
+//        em.getTransaction().begin();
+//        account2 = em.merge(account2);
+//        assertSame(account, account2);  //Beide objecten hebben hetzelfde ID gekregen bij het mergen
+//        assertTrue(em.contains(account2));  //bij het mergen is account 2 samengevoegd en is dus onderdeel van de database
+//        assertFalse(em.contains(tweedeAccountObject));  //eerder bleek al dat tweedeAccountObject gelink was aan account2 dus moet deze ook voorkomen in de database.
+//        tweedeAccountObject.setBalance(850l);
+//        assertEquals((Long) 650L, account.getBalance());  //bij het mergen is account overschreven met de waardes van account2
+//        assertEquals((Long) 650L, account2.getBalance());  //de waardes van account2 zijn heftzelfde gebleven bij het mergen.
+//        em.getTransaction().commit();
+//        em.close();
 //    }
 
 //    @Test
@@ -190,7 +249,6 @@ public class OpdrachtEen {
 //        //TODO verklaar verschil tussen beide scenario’s account wordt verwijderd, dus kan niet hetzelfde zijn.
 //        System.out.println("Second assert: " + accF1 + ", " + accF2);
 //    }
-    
 //    @Test
 //    public void vraagAcht() {
 //        Account acc1 = new Account(88L);
@@ -207,7 +265,6 @@ public class OpdrachtEen {
 //        assertNull(accFound);
 //        //TODO: verklaar bovenstaande asserts
 //    }
-    
 //    @Test
 //    public void vraagNegen()
 //    {
