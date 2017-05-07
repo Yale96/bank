@@ -191,20 +191,47 @@ public class OpdrachtEen {
 //        System.out.println("Second assert: " + accF1 + ", " + accF2);
 //    }
     
+//    @Test
+//    public void vraagAcht() {
+//        Account acc1 = new Account(88L);
+//        em.getTransaction().begin();
+//        em.persist(acc1);
+//        em.getTransaction().commit();
+//        Long id = acc1.getId();
+//        //Database bevat nu een account.
+//        
+//
+//        em.remove(acc1);
+//        assertEquals(id, acc1.getId());
+//        Account accFound = em.find(Account.class, id);
+//        assertNull(accFound);
+//        //TODO: verklaar bovenstaande asserts
+//    }
+    
     @Test
-    public void vraagAcht() {
-        Account acc1 = new Account(88L);
-        em.getTransaction().begin();
-        em.persist(acc1);
-        em.getTransaction().commit();
-        Long id = acc1.getId();
-        //Database bevat nu een account.
+    public void vraagNegen()
+    {
         
+        //GenerationType.SEQUENCE
+        Account account = new Account(111L);
+        em.getTransaction().begin();
+        em.persist(account);
+        //TODO: verklaar en pas eventueel aan (was al goed)
+        assertNull(account.getId());
+        em.getTransaction().commit();
+        System.out.println("AccountId: " + account.getId());
+        //TODO: verklaar en pas eventueel aan (was al goed)
+        assertTrue(account.getId() > 0L);
 
-        em.remove(acc1);
-        assertEquals(id, acc1.getId());
-        Account accFound = em.find(Account.class, id);
-        assertNull(accFound);
-        //TODO: verklaar bovenstaande asserts
+        //GenerationType.TABLE
+        em.getTransaction().begin();
+        em.persist(account);
+        //TODO: verklaar en pas eventueel aan (was al goed)
+        Long expected = 701L;
+        assertEquals(expected, account.getId());
+        em.getTransaction().commit();
+        System.out.println("AccountId: " + account.getId());
+        //TODO: verklaar en pas eventueel aan (was al goed)
+        assertTrue(account.getId() > 0L);
     }
 }
